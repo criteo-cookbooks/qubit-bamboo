@@ -1,0 +1,11 @@
+source 'https://rubygems.org'
+
+gem 'test-kitchen'
+gem 'berkshelf'
+gem 'kitchen-vagrant'
+gem 'kitchen-vagrant_winrm'
+gem 'vagrant-wrapper'
+gem 'rake'
+gem 'foodcritic'
+gem 'rspec'
+gem 'chefspec'

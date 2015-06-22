@@ -15,7 +15,7 @@ end
 package 'golang'
 package 'git'
 
-tar = ::File.join(Chef::Config[:file_cache_path],"qubit_bamboo_#{node['qubit_bamboo']['version']}.tar.gz")
+tar = ::File.join(Chef::Config[:file_cache_path], "qubit_bamboo_#{node['qubit_bamboo']['version']}.tar.gz")
 remote_file tar do
   source "https://github.com/QubitProducts/bamboo/archive/v#{node['qubit_bamboo']['version']}.tar.gz"
 end
@@ -31,8 +31,8 @@ directory node['qubit_bamboo']['home'] do
   recursive true
 end
 
-gopath = ::File.join(Chef::Config[:file_cache_path],'go')
-go_link = ::File.join(gopath,'src','github.com','QubitProducts')
+gopath = ::File.join(Chef::Config[:file_cache_path], 'go')
+go_link = ::File.join(gopath, 'src', 'github.com', 'QubitProducts')
 directory go_link do
   recursive true
 end

@@ -1,4 +1,4 @@
-# qubit_bamboo
+# qubit-bamboo
 
 TODO: Enter the cookbook description here.
 
