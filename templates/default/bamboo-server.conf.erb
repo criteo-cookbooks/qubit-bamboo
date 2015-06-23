@@ -15,6 +15,4 @@ umask 007
 
 kill timeout 300
 
-script
-    exec <%= node['qubit_bamboo']['home'] -%>/bamboo -config <%= node['qubit_bamboo']['config_path']-%> -log <%= node['qubit_bamboo']['log_path'] %> 
-end script
+exec <%= node['qubit_bamboo']['home'] -%>/bamboo -config <%= node['qubit_bamboo']['config_path']-%> -log <%= node['qubit_bamboo']['log_path'] %> 

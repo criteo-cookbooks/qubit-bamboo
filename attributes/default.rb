@@ -14,7 +14,7 @@ default['qubit_bamboo']['config']['zk']['hosts'] = ['localhost']
 default['qubit_bamboo']['config']['zk']['path'] = ''
 default['qubit_bamboo']['config']['zk']['reporting_delay'] = 5
 
-default['qubit_bamboo']['config']['haptoxy']['template_path'] = "#{node['qubit_bamboo']['home']}/haproxy_template.cfg"
+default['qubit_bamboo']['config']['haproxy']['template_path'] = "#{node['qubit_bamboo']['home']}/haproxy_template.cfg"
 default['qubit_bamboo']['config']['haproxy']['output_path'] = '/etc/haproxy/haproxy.cfg'
 default['qubit_bamboo']['config']['haproxy']['ReloadCommand'] = 'haproxy -f /etc/haproxy/haproxy.cfg -p /var/run/haproxy.pid -D -sf $(cat /var/run/haproxy.pid)'
 
