@@ -20,7 +20,7 @@ file node['qubit_bamboo']['config_path'] do
   content node['qubit_bamboo']['config'].to_json
 end
 
-template ::File.join('/', 'etc', 'bamboo-server.conf') do
+template ::File.join('/', 'etc', 'init', 'bamboo-server.conf') do
   source 'bamboo-server.conf.erb'
 end
 
