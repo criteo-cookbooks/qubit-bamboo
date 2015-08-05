@@ -17,11 +17,13 @@
 # limitations under the License.
 
 file node['qubit_bamboo']['config_path'] do
-  content node['qubit_bamboo']['config'].to_json
+  content Chef::JSONCompat.to_json_pretty(node['qubit_bamboo']['config'])
+  notifies :restart, 'service[bamboo-server]'
 end
 
 template ::File.join('/', 'etc', 'init', 'bamboo-server.conf') do
   source 'bamboo-server.conf.erb'
+  notifies :restart, 'service[bamboo-server]'
 end
 
 service 'bamboo-server' do
