@@ -84,7 +84,3 @@ bash 'copy_bamboo_webapp' do
   action :nothing
   subscribes :run, 'bash[build_bamboo]', :delayed
 end
-
-template '/etc/init/bamboo-server.conf' do
-  source 'bamboo-server.conf.erb'
-end
