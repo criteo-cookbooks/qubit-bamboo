@@ -21,8 +21,20 @@ file node['qubit_bamboo']['flags']['config'] do
   notifies :restart, 'service[bamboo-server]'
 end
 
+template ::File.join(node['qubit_bamboo']['home'], 'bamboo-wrapper.sh') do
+  source   'wrapper.erb'
+  owner    'root'
+  group    'root'
+  mode     '0755'
+  variables(bin:    ::File.join(node['qubit_bamboo']['home'], 'bamboo'),
+            flags:  node['qubit_bamboo']['flags'],
+            syslog: node['qubit_bamboo']['syslog'])
+  notifies :restart, 'service[bamboo-server]'
+end
+
 template ::File.join('/', 'etc', 'init', 'bamboo-server.conf') do
-  source 'bamboo-server.conf.erb'
+  source 'upstart.erb'
+  variables(wrapper: ::File.join(node['qubit_bamboo']['home'], 'bamboo-wrapper.sh'))
   notifies :restart, 'service[bamboo-server]'
 end
 
