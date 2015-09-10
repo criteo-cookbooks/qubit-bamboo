@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-file node['qubit_bamboo']['config_path'] do
+file node['qubit_bamboo']['flags']['config'] do
   content Chef::JSONCompat.to_json_pretty(node['qubit_bamboo']['config'])
   notifies :restart, 'service[bamboo-server]'
 end

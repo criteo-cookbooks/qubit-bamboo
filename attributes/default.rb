@@ -1,8 +1,8 @@
 default['qubit_bamboo']['home']    = '/opt/bamboo'
 default['qubit_bamboo']['version'] = '0.2.14'
 
-default['qubit_bamboo']['config_path'] = "#{node['qubit_bamboo']['home']}/production.json"
-default['qubit_bamboo']['log_path']    = '/var/log/bamboo-server.log'
+default['qubit_bamboo']['flags']['config'] = "#{node['qubit_bamboo']['home']}/production.json"
+default['qubit_bamboo']['flags']['log']    = '/var/log/bamboo-server.log'
 
 default['qubit_bamboo']['config']['Marathon']['Endpoint'] = 'http://localhost:8080'
 
