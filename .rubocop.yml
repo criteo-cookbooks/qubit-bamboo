@@ -1,0 +1,15 @@
+# RuboCop settings for Chef
+#
+# Elements in hashes should
+# always end with a comma
+TrailingComma:
+  EnforcedStyleForMultiline: comma
+#
+# Disable spacing and line length
+# for aligning chef code
+SingleSpaceBeforeFirstArg:
+  Enabled: false
+ExtraSpacing:
+  AllowForAlignment: true
+LineLength:
+  Enabled: false
