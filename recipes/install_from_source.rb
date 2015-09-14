@@ -31,8 +31,8 @@ directory node['qubit_bamboo']['home'] do
 end
 
 remote_file tar do
-    source "https://github.com/QubitProducts/bamboo/archive/v#{node['qubit_bamboo']['version']}.tar.gz"
-    notifies :run, 'bash[untar_bamboo]', :immediately
+  source "https://github.com/QubitProducts/bamboo/archive/v#{node['qubit_bamboo']['version']}.tar.gz"
+  notifies :run, 'bash[untar_bamboo]', :immediately
 end
 
 bash 'untar_bamboo' do
@@ -45,7 +45,7 @@ bash 'untar_bamboo' do
 end
 
 bash 'build_bamboo' do
-  cwd "#{Chef::Config[:file_cache_path]}"
+  cwd Chef::Config[:file_cache_path]
   code <<-EOF
   mkdir -p #{go_link}
   [ -l #{go_link}/bamboo ] || ln -s $(pwd)/bamboo-#{node['qubit_bamboo']['version']}  #{go_link}/bamboo
