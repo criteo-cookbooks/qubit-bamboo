@@ -12,4 +12,7 @@ umask 007
 
 kill timeout 300
 
-exec <%= @wrapper %>
+# bamboo binary configuration & syslog redirection
+exec <%= @bin %> \
+<%- @flags.sort.each do |flag, value| -%> <%= "-#{flag}=\"#{value}\""%> <%- end -%> \
+<%- if @syslog -%> 2>&1 | logger -p user.info -t "bamboo" <%- end -%>
