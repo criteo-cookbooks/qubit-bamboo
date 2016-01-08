@@ -3,6 +3,7 @@ default['qubit_bamboo']['version'] = '0.2.14'
 default['qubit_bamboo']['syslog']  = true
 
 default['qubit_bamboo']['flags']['config'] = "#{node['qubit_bamboo']['home']}/production.json"
+default['qubit_bamboo']['flags']['bind'] = ':8000'
 
 default['qubit_bamboo']['config']['Marathon']['Endpoint'] = 'http://localhost:8080'
 
