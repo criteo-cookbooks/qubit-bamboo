@@ -18,7 +18,7 @@
 
 file node['qubit_bamboo']['flags']['config'] do
   content Chef::JSONCompat.to_json_pretty(node['qubit_bamboo']['config'])
-  notifies :restart, 'service[bamboo-server]'
+  notifies :restart, 'poise_service[bamboo-server]'
 end
 
 # Wrapper is not used anymore
@@ -26,15 +26,11 @@ file ::File.join(node['qubit_bamboo']['home'], 'bamboo-wrapper.sh') do
   action :delete
 end
 
-template ::File.join('/', 'etc', 'init', 'bamboo-server.conf') do
-  source 'upstart.erb'
-  variables(bin:    ::File.join(node['qubit_bamboo']['home'], 'bamboo'),
-            flags:  node['qubit_bamboo']['flags'],
-            syslog: node['qubit_bamboo']['syslog'])
-  notifies :restart, 'service[bamboo-server]'
-end
+bin = ::File.join(node['qubit_bamboo']['home'], 'bamboo')
+flags = node['qubit_bamboo']['flags'].sort.map { |k, v| " -#{k}=\"#{v}\"" }.join ' '
+syslog = node['qubit_bamboo']['syslog'] ? '2>&1 | logger -p user.info -t "bamboo"' : ''
+bamboo_command = "#{bin} #{flags} #{syslog}"
 
-service 'bamboo-server' do
-  provider Chef::Provider::Service::Upstart
-  action [:enable, :start]
+poise_service 'bamboo-server' do
+  command bamboo_command
 end
