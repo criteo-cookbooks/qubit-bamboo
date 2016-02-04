@@ -27,8 +27,8 @@ file ::File.join(node['qubit_bamboo']['home'], 'bamboo-wrapper.sh') do
 end
 
 bin = ::File.join(node['qubit_bamboo']['home'], 'bamboo')
-flags = node['qubit_bamboo']['flags'].sort.map { |k, v| " -#{k}=\"#{v}\"" }.join ' '
-syslog = node['qubit_bamboo']['syslog'] ? '2>&1 | logger -p user.info -t "bamboo"' : ''
+flags = node['qubit_bamboo']['flags'].sort.map { |k, v| " -#{k}=#{v}" }.join ' '
+syslog = node['qubit_bamboo']['syslog'] ? '2>&1 | logger -p user.info -t bamboo' : ''
 bamboo_command = "#{bin} #{flags} #{syslog}"
 
 poise_service 'bamboo-server' do
