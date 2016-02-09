@@ -26,6 +26,13 @@ file ::File.join(node['qubit_bamboo']['home'], 'bamboo-wrapper.sh') do
   action :delete
 end
 
+# disable the old bamboo-server service
+service 'bamboo-server' do
+  provider Chef::Provider::Service::Upstart
+  action [:disable, :stop]
+  only_if { node['platform_version'].to_i < 7 }
+end 
+
 bin = ::File.join(node['qubit_bamboo']['home'], 'bamboo')
 flags = node['qubit_bamboo']['flags'].sort.map { |k, v| " -#{k}=#{v}" }.join ' '
 syslog = node['qubit_bamboo']['syslog'] ? '2>&1 | logger -p user.info -t bamboo' : ''
@@ -34,3 +41,4 @@ bamboo_command = "#{bin} #{flags} #{syslog}"
 poise_service 'bamboo' do
   command bamboo_command
 end
+
