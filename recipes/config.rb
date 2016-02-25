@@ -40,9 +40,18 @@ end
 bin = ::File.join(node['qubit_bamboo']['home'], 'bamboo')
 flags = node['qubit_bamboo']['flags'].sort.map { |k, v| " -#{k}=#{v}" }.join ' '
 syslog = node['qubit_bamboo']['syslog'] ? '2>&1 | logger -p user.info -t bamboo' : ''
-bamboo_command = %("#{bin} #{flags} #{syslog}")
+
+node.default['qubit_bamboo']['poise_service']['options'] = {
+  upstart: {
+    command: %("#{bin} #{flags} #{syslog}"),
+  },
+  systemd: {
+    command: "#{bin} #{flags}",
+  },
+}
 
 poise_service 'bamboo' do
-  command bamboo_command
+  node['qubit_bamboo']['poise_service']['options'].each do |k, v|
+    options k, v
+  end
 end
-
