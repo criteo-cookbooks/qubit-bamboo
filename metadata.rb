@@ -4,6 +4,8 @@ maintainer_email 'r.hanna@criteo.com'
 license          'Apache 2.0'
 description      'Installs/Configures qubit-bamboo'
 long_description 'Installs/Configures qubit-bamboo'
+issues_url       'https://github.com/criteo-cookbooks/qubit-bamboo.git'
+source_url       'https://github.com/criteo-cookbooks/qubit-bamboo.git'
 version          '0.3.1'
 supports         'centos'
 
