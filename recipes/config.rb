@@ -21,28 +21,13 @@ file node['qubit_bamboo']['flags']['config'] do
   notifies :restart, 'poise_service[bamboo]'
 end
 
-# Wrapper is not used anymore
-file ::File.join(node['qubit_bamboo']['home'], 'bamboo-wrapper.sh') do
-  action :delete
-end
-
-# disable the old bamboo-server service
-service 'bamboo-server' do
-  provider Chef::Provider::Service::Upstart
-  action [:disable, :stop]
-  only_if { node['platform_version'].to_i < 7 && ::File.exist?('/etc/init/bamboo-server.conf') }
-end
-
-file '/etc/init/bamboo-server.conf' do
-  action :delete
-end
-
 bin = ::File.join(node['qubit_bamboo']['home'], 'bamboo')
 flags = node['qubit_bamboo']['flags'].sort.map { |k, v| " -#{k}=#{v}" }.join ' '
 syslog = node['qubit_bamboo']['syslog'] ? '2>&1 | logger -p user.info -t bamboo' : ''
 
 node.default['qubit_bamboo']['poise_service']['options'] = {
   upstart: {
+    template: 'upstart.conf.erb',
     command: %("#{bin} #{flags} #{syslog}"),
   },
   systemd: {
